@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Happy Birthday ❤️</title>
 
 <style>
@@ -75,6 +76,7 @@ font-size:55px;
 font-weight:bold;
 animation:glow 2s infinite alternate;
 }
+
 @keyframes glow{
 from{text-shadow:0 0 10px white;}
 to{text-shadow:0 0 40px hotpink,0 0 70px violet;}
@@ -117,7 +119,7 @@ justify-content:center;
 align-items:center;
 flex-direction:column;
 background:
-linear-gradient(rgba(246, 108, 108, 0.023),rgba(8,7,7,.5)),
+linear-gradient(rgba(246,108,108,0.05),rgba(8,7,7,.6)),
 url("bg.jpeg") center/cover no-repeat;
 }
 
@@ -156,6 +158,45 @@ will-change:transform;
 0%{transform:translateY(-50px) translateX(0);opacity:0;}
 10%{opacity:1;}
 100%{transform:translateY(100vh) translateX(var(--drift));opacity:0;}
+}
+
+/* MOBILE VERSION */
+@media (max-width:600px){
+
+body{padding:15px;}
+
+.card{
+width:100%;
+padding:25px 15px;
+border-radius:18px;
+}
+
+.name{font-size:34px;}
+
+h1{font-size:24px;}
+
+img{
+width:150px;
+margin:15px 0;
+}
+
+button{
+width:100%;
+font-size:16px;
+padding:12px;
+margin:12px 0;
+}
+
+#finalPage h1{
+font-size:36px !important;
+}
+
+#finalPage p{
+font-size:16px !important;
+line-height:1.6;
+color:#4da6ff;
+padding:0 10px;
+}
 }
 </style>
 </head>
@@ -198,7 +239,8 @@ m.volume=0;
 m.play();
 let v=0;
 let fade=setInterval(()=>{
-if(v<1){v+=0.05;m.volume=v;}else clearInterval(fade);
+if(v<1){v+=0.05;m.volume=v;}
+else clearInterval(fade);
 },200);
 },{once:true});
 
@@ -210,7 +252,7 @@ fireworks();
 startSurpriseEffects();
 }
 
-/* ⭐ UNLIMITED STARS */
+/* stars */
 setInterval(()=>{
 let s=document.createElement("div");
 s.className="star";
@@ -223,8 +265,7 @@ document.body.appendChild(s);
 setTimeout(()=>s.remove(),35000);
 },120);
 
-
-/* ✨ extra floating particles */
+/* particles */
 setInterval(()=>{
 let p=document.createElement("div");
 p.className="particle";
@@ -237,7 +278,6 @@ p.style.animationDuration=(Math.random()*10+10)+"s";
 document.body.appendChild(p);
 setTimeout(()=>p.remove(),20000);
 },150);
-
 
 /* fireworks */
 function fireworks(){
@@ -263,8 +303,7 @@ setTimeout(()=>f.remove(),1000);
 },1200);
 }
 
-
-/* REAL SKY EFFECT */
+/* falling effects */
 function startSurpriseEffects(){
 
 setInterval(()=>{
