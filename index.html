@@ -123,6 +123,14 @@ linear-gradient(rgba(246,108,108,0.05),rgba(8,7,7,.6)),
 url("bg.jpeg") center/cover no-repeat;
 }
 
+/* message text */
+#finalPage p{
+font-size:22px;
+color:black;
+font-weight:500;
+padding:0 15px;
+}
+
 /* fireworks */
 .fire{
 position:fixed;
@@ -192,10 +200,9 @@ font-size:36px !important;
 }
 
 #finalPage p{
-font-size:16px !important;
-line-height:1.6;
-color:#4da6ff;
-padding:0 10px;
+font-size:19px !important;
+line-height:1.7;
+color:black;
 }
 }
 </style>
@@ -224,6 +231,8 @@ May this year bring you more success, good health, and everything your heart wis
 And honestly… a part of my heart❤️ always smiles a little brighter because you exist.<br>
 💖 Always stay the wonderful person you are — cheering for you today and always! 🌟
 </p>
+
+<button onclick="goBack()">⬅ Back</button>
 </div>
 
 <audio id="bgMusic" loop>
@@ -250,6 +259,11 @@ mainCard.style.display="none";
 finalPage.style.display="flex";
 fireworks();
 startSurpriseEffects();
+}
+
+/* reload page for original state */
+function goBack(){
+location.reload();
 }
 
 /* stars */
