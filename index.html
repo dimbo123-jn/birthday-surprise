@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Happy Birthday ❤️</title>
+
+<style>
+body{
+margin:0;
+min-height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+font-family:'Segoe UI',sans-serif;
+text-align:center;
+background:black;
+color:rgb(198,133,133);
+overflow:hidden;
+}
+
+/* background stars */
+.star{
+position:fixed;
+background:white;
+border-radius:50%;
+opacity:.8;
+pointer-events:none;
+animation:
+twinkle 2s infinite alternate,
+starFall linear infinite;
+}
+
+@keyframes twinkle{
+from{opacity:.2;}
+to{opacity:1;}
+}
+
+@keyframes starFall{
+from{transform:translateY(-10vh);}
+to{transform:translateY(110vh);}
+}
+
+/* extra particles */
+.particle{
+position:fixed;
+pointer-events:none;
+border-radius:50%;
+background:radial-gradient(circle,white,transparent);
+opacity:.6;
+animation:particleMove linear forwards;
+}
+
+@keyframes particleMove{
+from{
+transform:translateY(-20px) translateX(0);
+opacity:0;
+}
+20%{opacity:.8;}
+to{
+transform:translateY(100vh) translateX(var(--drift));
+opacity:0;
+}
+}
+
+/* card */
+.card{
+background:rgba(217,153,153,.44);
+padding:40px;
+border-radius:25px;
+box-shadow:0 0 25px rgba(255,192,203,.43);
+z-index:2;
+}
+
+.name{
+font-size:55px;
+font-weight:bold;
+animation:glow 2s infinite alternate;
+}
+@keyframes glow{
+from{text-shadow:0 0 10px white;}
+to{text-shadow:0 0 40px hotpink,0 0 70px violet;}
+}
+
+img{
+width:200px;
+border-radius:20px;
+margin:20px 0;
+box-shadow:0 0 20px white;
+}
+
+button{
+padding:12px 28px;
+font-size:18px;
+border:none;
+border-radius:30px;
+cursor:pointer;
+background:white;
+color:#ff4b6e;
+margin:10px;
+transition:.3s;
+}
+button:hover{
+background:#ff4b6e;
+color:white;
+transform:scale(1.1);
+}
+
+/* final page */
+#finalPage{
+display:none;
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+z-index:9999;
+justify-content:center;
+align-items:center;
+flex-direction:column;
+background:
+linear-gradient(rgba(246, 108, 108, 0.023),rgba(8,7,7,.5)),
+url("bg.jpeg") center/cover no-repeat;
+}
+
+/* fireworks */
+.fire{
+position:fixed;
+width:6px;
+height:6px;
+border-radius:50%;
+pointer-events:none;
+}
+
+/* background image */
+body::before{
+content:"";
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:url("bg.jpeg") center/cover no-repeat;
+opacity:.25;
+z-index:-1;
+}
+
+/* falling effects */
+.sStar,.sHeart{
+position:fixed;
+pointer-events:none;
+z-index:10000;
+animation:fall linear forwards;
+will-change:transform;
+}
+
+@keyframes fall{
+0%{transform:translateY(-50px) translateX(0);opacity:0;}
+10%{opacity:1;}
+100%{transform:translateY(100vh) translateX(var(--drift));opacity:0;}
+}
+</style>
+</head>
+
+<body>
+
+<div class="card" id="mainCard">
+<h1>🎂 Happy Birthday 🎉</h1>
+<div class="name">❤️</div>
+
+<img src="photo.jpeg">
+
+<p>💖</p>
+
+<button onclick="openFinal()">Touch This ❤️</button>
+</div>
+
+<div id="finalPage">
+<h1 style="font-size:65px;">❤️ Happy Birthday ❤️</h1>
+<p>
+Happy Birthday! 🎉<br>
+Wishing you a day filled with happiness, laughter, and beautiful moments❤️.<br>
+We’ve shared so many memories since our school days, and it’s always been wonderful seeing you grow and shine.<br>
+May this year bring you more success, good health, and everything your heart wishes for❤️.<br>
+And honestly… a part of my heart❤️ always smiles a little brighter because you exist.<br>
+💖 Always stay the wonderful person you are — cheering for you today and always! 🌟
+</p>
+</div>
+
+<audio id="bgMusic" loop>
+<source src="https://cdn.pixabay.com/audio/2022/10/30/audio_946cde4c53.mp3">
+</audio>
+
+<script>
+
+/* music */
+window.addEventListener("click",()=>{
+let m=bgMusic;
+m.volume=0;
+m.play();
+let v=0;
+let fade=setInterval(()=>{
+if(v<1){v+=0.05;m.volume=v;}else clearInterval(fade);
+},200);
+},{once:true});
+
+/* open final */
+function openFinal(){
+mainCard.style.display="none";
+finalPage.style.display="flex";
+fireworks();
+startSurpriseEffects();
+}
+
+/* ⭐ UNLIMITED STARS */
+setInterval(()=>{
+let s=document.createElement("div");
+s.className="star";
+s.style.width=s.style.height=Math.random()*3+"px";
+s.style.left=Math.random()*100+"vw";
+s.style.animationDuration=
+(Math.random()*3+1)+"s, "+
+(Math.random()*20+15)+"s";
+document.body.appendChild(s);
+setTimeout(()=>s.remove(),35000);
+},120);
+
+
+/* ✨ extra floating particles */
+setInterval(()=>{
+let p=document.createElement("div");
+p.className="particle";
+let size=Math.random()*6+2;
+p.style.width=size+"px";
+p.style.height=size+"px";
+p.style.left=Math.random()*100+"vw";
+p.style.setProperty("--drift",(Math.random()*200-100)+"px");
+p.style.animationDuration=(Math.random()*10+10)+"s";
+document.body.appendChild(p);
+setTimeout(()=>p.remove(),20000);
+},150);
+
+
+/* fireworks */
+function fireworks(){
+setInterval(()=>{
+for(let i=0;i<80;i++){
+let f=document.createElement("div");
+f.className="fire";
+f.style.background=`hsl(${Math.random()*360},100%,60%)`;
+f.style.left="50vw";
+f.style.top="50vh";
+document.body.appendChild(f);
+
+let x=(Math.random()*400-200);
+let y=(Math.random()*400-200);
+
+f.animate([
+{transform:"translate(0,0)",opacity:1},
+{transform:`translate(${x}px,${y}px)`,opacity:0}
+],{duration:1000});
+
+setTimeout(()=>f.remove(),1000);
+}
+},1200);
+}
+
+
+/* REAL SKY EFFECT */
+function startSurpriseEffects(){
+
+setInterval(()=>{
+for(let i=0;i<3;i++){
+let s=document.createElement("div");
+s.className="sStar";
+s.innerHTML="✨";
+s.style.left=Math.random()*100+"vw";
+s.style.top=Math.random()*-200+"px";
+s.style.fontSize=(Math.random()*10+8)+"px";
+s.style.animationDuration=(Math.random()*5+6)+"s";
+s.style.setProperty("--drift",(Math.random()*100-50)+"px");
+document.body.appendChild(s);
+setTimeout(()=>s.remove(),11000);
+}
+},300);
+
+setInterval(()=>{
+for(let i=0;i<4;i++){
+let s=document.createElement("div");
+s.className="sStar";
+s.innerHTML="⭐";
+s.style.left=Math.random()*100+"vw";
+s.style.top=Math.random()*-200+"px";
+s.style.fontSize=(Math.random()*15+10)+"px";
+s.style.animationDuration=(Math.random()*4+4)+"s";
+s.style.setProperty("--drift",(Math.random()*160-80)+"px");
+document.body.appendChild(s);
+setTimeout(()=>s.remove(),9000);
+}
+},220);
+
+setInterval(()=>{
+for(let i=0;i<3;i++){
+let h=document.createElement("div");
+h.className="sHeart";
+h.innerHTML="❤️";
+h.style.left=Math.random()*100+"vw";
+h.style.top=Math.random()*-200+"px";
+h.style.fontSize=(Math.random()*25+18)+"px";
+h.style.animationDuration=(Math.random()*3+3)+"s";
+h.style.setProperty("--drift",(Math.random()*200-100)+"px");
+document.body.appendChild(h);
+setTimeout(()=>h.remove(),7000);
+}
+},180);
+
+}
+</script>
+
+</body>
+</html>
